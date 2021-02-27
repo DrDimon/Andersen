@@ -5,9 +5,11 @@
 #include "Object.h"
 #include "ObjectPath.h"
 
-int interpStory(Object* root){
+int interpStory(Object* root, unsigned int seed = 0){
 
-  std::srand(time(NULL));
+  if (!seed) seed = time(NULL);
+  std::cout << "Seed: " << seed << std::endl;
+  std::srand(seed);
 
   root->print();
   ObjectPath path = ObjectPath("TOP");

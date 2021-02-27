@@ -16,6 +16,8 @@
                    );
 
   subobjects_map* addObject(Object* obj, subobjects_map* previous);
+
+  Object* root = NULL;
 %}
 
 %union {
@@ -39,10 +41,9 @@
 %%
 
 program:
-  objects { Object* obj = new Object();
-            obj->objName = std::string("ROOT");
-            obj->subObjects = *$1;
-            interpStory(obj);}
+  objects { root = new Object();
+            root->objName = std::string("ROOT");
+            root->subObjects = *$1;}
 
 objects:
   object          {$$ = addObject($1, new subobjects_map());}
@@ -95,8 +96,10 @@ Object* newObject(std::string* objName
   return obj;
 }
 
-int main(void){
+int main(int argc, char **argv){
   yyparse();
+  int seed = argc > 1 ? std::stoi(argv[1]) : 0;
+  interpStory(root, seed);
   return 0;
 }
 
