@@ -1,0 +1,6 @@
+Andersen
+.parser.*
+parser.tab.*
+lex.yy.*
+y.*
+*.o
