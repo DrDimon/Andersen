@@ -12,14 +12,13 @@ void PlaceholderFragment::print(){
   path.print();
 }
 
-std::string PlaceholderFragment::render(Object* root) {
+std::string PlaceholderFragment::render(Object* root, Object* current_object) {
   path.reset(); // TODO: this should probably not be shared...
-  std::string next_object = path.pop_next_object();
 
-  if (next_object == "ROOT") {
+  if (path.is_root_path()) {
+      std::string next_object = path.pop_next_object();
       return root->render(root, path);
   }
-  // TODO:
-  std::cout << "TODO: ERROR!!!! not implemented yet!" << std::endl;
-  return path.to_string();
+
+  return current_object->render(root, path);
 }

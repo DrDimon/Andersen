@@ -25,7 +25,7 @@ std::string Object::render(Object* root, ObjectPath path){
   if (next_subobject == "") {
     std::string result;
     for (auto elem : fragments) {
-      result += elem->render(root);
+      result += elem->render(root, this);
     }
     return result;
   }

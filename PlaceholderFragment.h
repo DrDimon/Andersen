@@ -10,7 +10,7 @@ class PlaceholderFragment: public Fragment {
   public:
     PlaceholderFragment( std::string* str );
     void print() override;
-    std::string render(Object* root) override;
+    std::string render(Object* root, Object* current_object) override;
 };
 
 #endif
