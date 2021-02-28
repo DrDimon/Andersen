@@ -18,6 +18,7 @@
   subobjects_map* addObject(Object* obj, subobjects_map* previous);
 
   Object* root = NULL;
+  std::string* newline_str = new std::string("\n");
 %}
 
 %union {
@@ -28,7 +29,7 @@
   std::vector<Fragment*>* fragments;
 }
 
-%token ELAB LAB RAB LSB RSB
+%token ELAB LAB RAB LSB RSB NEWLN
 %token <ObjName> OBJNAME
 %token <Text> TEXT
 
@@ -46,18 +47,24 @@ program:
             root->subObjects = *$1;}
 
 objects:
-  object          {$$ = addObject($1, new subobjects_map());}
-| object objects  {$$ = addObject($1, $2);}
+  object newlines          {$$ = addObject($1, new subobjects_map());}
+| object newlines objects  {$$ = addObject($1, $3);}
+  ;
+
+/* Zero or any number */
+newlines:
+  /* empty */ {}
+| NEWLN newlines {}
   ;
 
 object:
-  LAB OBJNAME RAB fragments ELAB OBJNAME RAB {$$ = newObject($2, $4, NULL);}
-| LAB OBJNAME RAB fragments objects ELAB OBJNAME RAB {$$ = newObject($2, $4, $5);}
+  LAB OBJNAME RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $5, NULL);}
+| LAB OBJNAME RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $5, $7);}
   ;
-
 
 fragments:
    /* empty */              {$$ = new std::vector<Fragment*>;}
+| fragments NEWLN           {$1->push_back(new TextFragment(newline_str)); $$ = $1;}
 | fragments TEXT            {$1->push_back(new TextFragment($2)); $$ = $1;}
 // If TEXT doesn't contain a character that is illegal in OBJNAME, it will be
 // parsed as an OBJNAME, which should be allowed:
