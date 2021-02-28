@@ -24,6 +24,7 @@
 %union {
   Object* object;
   std::string* ObjName;
+  std::string* Placeholder;
   std::string* Text;
   subobjects_map* subObjects;
   std::vector<Fragment*>* fragments;
@@ -31,6 +32,7 @@
 
 %token ELAB LAB RAB LSB RSB NEWLN
 %token <ObjName> OBJNAME
+%token <Placeholder> PLACEHOLDER
 %token <Text> TEXT
 
 %start program
@@ -69,7 +71,7 @@ fragments:
 // If TEXT doesn't contain a character that is illegal in OBJNAME, it will be
 // parsed as an OBJNAME, which should be allowed:
 | fragments OBJNAME         {$1->push_back(new TextFragment($2)); $$ = $1;}
-| fragments LSB OBJNAME RSB {$1->push_back(new PlaceholderFragment($3)); $$ = $1;}
+| fragments LSB PLACEHOLDER RSB {$1->push_back(new PlaceholderFragment($3)); $$ = $1;}
   ;
 
 %%

@@ -6,21 +6,26 @@
 
 %}
 
+%s SPLACEHOLDER STAG
+
 %%
 
-" "*<                       { return LAB;}
-" "*"</"                    { return ELAB;}
-">"                         { return RAB;}
-"["                         { return LSB;}
-"]"                         { return RSB;}
+
+" "*<                       { BEGIN STAG;         return LAB;}
+" "*"</"                    { BEGIN STAG;         return ELAB;}
+">"                         { BEGIN INITIAL;      return RAB;}
+"["                         { BEGIN SPLACEHOLDER; return LSB;}
+"]"                         { BEGIN INITIAL;      return RSB;}
 "\n"                        { return NEWLN;}
 " "+"//"[^\n]*\n            /* Ignore comments: This is a full line comment, which is removed including the newline. */
 "//"\n                      /* Ignore comments: Ending the line with '//' removes the newline. */
 "//"[^\n]*                  /* Ignore comments: A comment at the end of a line does not remove the newline */
 
-[a-zA-Z0-9\.]+              { yylval.ObjName = new std::string(yytext);
+<STAG>[a-zA-Z0-9]+           { yylval.ObjName = new std::string(yytext);
                               return OBJNAME; }
-[a-zA-Z0-9" ",\-\.]+        { yylval.ObjName = new std::string(yytext);
+<SPLACEHOLDER>[a-zA-Z0-9\.]+ { yylval.Placeholder = new std::string(yytext);
+                              return PLACEHOLDER; }
+[a-zA-Z0-9" ",\-\.]+         { yylval.ObjName = new std::string(yytext);
                               return TEXT; }
 
 %%
