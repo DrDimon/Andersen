@@ -11,10 +11,10 @@ int interpStory(Object* root, unsigned int seed = 0){
   std::cout << "Seed: " << seed << std::endl;
   std::srand(seed);
 
-  root->print();
+//  root->print();
   ObjectPath path = ObjectPath("TOP");
   std::string result = root->render(root, path);
-  std::cout << "Render result:" << std::endl;
+//  std::cout << "Render result:" << std::endl;
   std::cout << result << std::endl;
   return 0;
 }
