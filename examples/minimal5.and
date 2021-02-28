@@ -1,0 +1,13 @@
+<TOP>
+//
+top [ROOT.TOP.INNER]
+<INNER>
+inner 1
+</INNER>
+// Now with comments:
+<INNER> // Also after other things
+//Everywhere!!
+inner 2
+</INNER>
+</TOP>
+    // EVERYWHERE!!!! // Two on one line

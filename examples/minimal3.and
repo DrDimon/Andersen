@@ -1,0 +1,24 @@
+<TOP>
+[ROOT.GREETING] [ROOT.OBJECT]
+</TOP>
+<GREETING>
+Hello
+</GREETING>
+<GREETING>
+Hi
+
+
+</GREETING>
+<GREETING>
+Hello there
+</GREETING>
+<OBJECT>
+World
+</OBJECT>
+<OBJECT>
+General
+    Kenobi
+</OBJECT>
+<OBJECT>
+You
+</OBJECT>

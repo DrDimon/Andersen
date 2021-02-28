@@ -1,0 +1,10 @@
+<TOP>
+top [INNER]
+  <INNER>
+inner 1
+  </INNER>
+
+  <INNER>
+inner 2
+  </INNER>
+</TOP>
