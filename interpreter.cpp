@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include "Object.h"
+#include "ObjectInstance.h"
 #include "ObjectPath.h"
 
 int interpStory(Object* root, unsigned int seed = 0){
@@ -13,8 +14,10 @@ int interpStory(Object* root, unsigned int seed = 0){
 
 //  root->print();
   ObjectPath path = ObjectPath("TOP");
-  std::string result = root->render(root, path);
 //  std::cout << "Render result:" << std::endl;
+
+  ObjectInstance root_instance = ObjectInstance(root);
+  std::string result = root_instance.render(root, path);
   std::cout << result << std::endl;
   return 0;
 }

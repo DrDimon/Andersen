@@ -2,9 +2,11 @@
 
 #include <iostream>
 #include "Object.h"
+#include "ObjectInstance.h"
 
-PlaceholderFragment::PlaceholderFragment( std::string* str ){
+PlaceholderFragment::PlaceholderFragment( std::string* str, std::string* varName ){
   path = ObjectPath(*str);
+  if (varName) variableName = *varName;
 }
 
 void PlaceholderFragment::print(){
@@ -12,13 +14,8 @@ void PlaceholderFragment::print(){
   path.print();
 }
 
-std::string PlaceholderFragment::render(Object* root, Object* current_object) {
+std::string PlaceholderFragment::render(Object* root, ObjectInstance* current_object) {
   path.reset(); // TODO: this should probably not be shared...
 
-  if (path.is_root_path()) {
-      std::string next_object = path.pop_next_object();
-      return root->render(root, path);
-  }
-
-  return current_object->render(root, path);
+  return current_object->render(root, path, variableName);
 }

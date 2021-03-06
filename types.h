@@ -6,9 +6,13 @@
 #include <map>
 
 class Object;
+class ObjectInstance;
 
 typedef std::map<std::string, std::vector<Object*>> subobjects_map;
 typedef std::map<std::string, std::vector<Object*>>::iterator subobjects_map_iterator;
+
+typedef std::map<std::string, ObjectInstance*> inst_subobjects_map;
+typedef std::map<std::string, ObjectInstance*>::iterator inst_subobjects_map_iterator;
 
 class Fragment {
   public:
@@ -19,7 +23,8 @@ class Fragment {
      * Object* root: the root which includes all other objects.
      * Object* current_object: The object that is currently being rendered.
      */
-    virtual std::string render(Object*, Object*) {return "";};
+    virtual std::string render(Object*, ObjectInstance*) {return "";};
+    virtual std::string get_variableName() {return "";};
 };
 
 #endif

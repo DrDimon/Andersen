@@ -26,12 +26,15 @@
   std::string* ObjName;
   std::string* Placeholder;
   std::string* Text;
+  std::string* VarName;
   subobjects_map* subObjects;
   std::vector<Fragment*>* fragments;
+  Fragment* fragment;
 }
 
-%token ELAB LAB RAB LSB RSB NEWLN
+%token ELAB LAB RAB LSB RSB NEWLN COLON DOT
 %token <ObjName> OBJNAME
+%token <VarName> VARNAME
 %token <Placeholder> PLACEHOLDER
 %token <Text> TEXT
 
@@ -40,6 +43,8 @@
 %type<subObjects> objects
 %type<object> object
 %type<fragments> fragments
+%type<fragment> placeholder
+%type<VarName> varname
 
 %%
 
@@ -68,10 +73,17 @@ fragments:
    /* empty */              {$$ = new std::vector<Fragment*>;}
 | fragments NEWLN           {$1->push_back(new TextFragment(newline_str)); $$ = $1;}
 | fragments TEXT            {$1->push_back(new TextFragment($2)); $$ = $1;}
-// If TEXT doesn't contain a character that is illegal in OBJNAME, it will be
-// parsed as an OBJNAME, which should be allowed:
-| fragments OBJNAME         {$1->push_back(new TextFragment($2)); $$ = $1;}
-| fragments LSB PLACEHOLDER RSB {$1->push_back(new PlaceholderFragment($3)); $$ = $1;}
+| fragments placeholder     {$1->push_back($2); $$ = $1;}
+  ;
+
+placeholder:
+  LSB varname RSB               {$$ = new PlaceholderFragment($2);}
+| LSB VARNAME COLON varname RSB {$$ = new PlaceholderFragment($4, $2);}
+  ;
+
+varname:
+  VARNAME {$$ = $1;}
+| VARNAME DOT varname  {$1->append("."); $1->append(*$3); $$ = $1;}
   ;
 
 %%

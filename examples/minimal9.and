@@ -1,0 +1,66 @@
+<TOP>
+[VAR:THING] is definietly [VAR:THING]
+but [THING] is anything.
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+A
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+B
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+C
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+D
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+E
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+F
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+G
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+H
+    </SUBTHING>
+  </THING>
+
+  <THING>
+[SUBTHING] is [SUBTHING]
+    <SUBTHING>
+I
+    </SUBTHING>
+  </THING>
+</TOP>

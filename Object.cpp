@@ -18,31 +18,17 @@ void Object::print() {
   }
 }
 
-std::string Object::render(Object* root, ObjectPath path){
+Object* Object::get_random_subobject(std::string name) {
 
-  std::string next_subobject = path.pop_next_object();
-
-  if (next_subobject == "") {
-    std::string result;
-    for (auto elem : fragments) {
-      result += elem->render(root, this);
-    }
-    return result;
-  }
-
-  subobjects_map_iterator possible_objects = subObjects.find(next_subobject);
+  subobjects_map_iterator possible_objects = subObjects.find(name);
 
   // If we didn't find the object, return an error:
   if (possible_objects == subObjects.end() || possible_objects->second.empty()) {
-    std::cerr << "Object not found:" << std::endl;
-    path.print();
-    return "[ERROR]"; // TODO
+    std::cerr << "Object not found: " << name << std::endl;
+    exit(1);
   }
 
-  // Otherwise return the render of a random subobject:
   std::vector<Object*> valid_objects = possible_objects->second;
   unsigned int index = std::rand() % valid_objects.size();
-  Object* next_object = valid_objects[index];
-  return next_object->render(root, path);
-
+  return valid_objects[index];
 }
