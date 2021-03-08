@@ -26,10 +26,10 @@
 "//"\n                      /* Ignore comments: Ending the line with '//' removes the newline. */
 "//"[^\n]*                  /* Ignore comments: A comment at the end of a line does not remove the newline */
 
-<SPLACEHOLDER,STAG>[a-zA-Z0-9]+ { yylval.ObjName = new std::string(yytext);
-                                 return OBJNAME; }
-<STEXT>[a-zA-Z0-9" ",\-\.]+  { yylval.ObjName = new std::string(yytext);
-                               return TEXT;}
+<SPLACEHOLDER,STAG>[a-zA-Z0-9_]+ { yylval.ObjName = new std::string(yytext);
+                                     return OBJNAME; }
+<STEXT>[^<[\n]+                    { yylval.ObjName = new std::string(yytext);
+                                     return TEXT;}
 
 %%
 

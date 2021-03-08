@@ -1,0 +1,24 @@
+<TOP>
+He said:
+  "Hey!? I don't like you"
+
+To which the guy responded:
+  "[ROOT.RUDE_RESPONSE]"
+
+He didn't know what to say.
+  "[ROOT.EMPTY_RESPONSE]"
+
+He thought about a nice oneliner. Finally:
+  "[ROOT.SEMI_EMPTY.ONELINER]"
+
+</TOP>
+
+<RUDE_RESPONSE>
+F*#k you, you ¤$@$¥£$£¡£$
+</RUDE_RESPONSE>
+
+<EMPTY_RESPONSE></EMPTY_RESPONSE>
+
+<SEMI_EMPTY>
+  <ONELINER>I'll kick you!</ONELINER>
+</SEMI_EMPTY>

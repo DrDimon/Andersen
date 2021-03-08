@@ -43,6 +43,7 @@
 %type<subObjects> objects
 %type<object> object
 %type<fragments> fragments
+%type<fragments> single_line_fragments
 %type<fragment> placeholder
 %type<ObjName> varname
 %type<ParameterList> parameter_list
@@ -69,6 +70,8 @@ newlines:
 object:
   LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $6, NULL, $3);}
 | LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $6, $8, $3);}
+| LAB OBJNAME parameter_list RAB single_line_fragments ELAB OBJNAME RAB {$$ = newObject($2, $5, NULL, $3);}
+| LAB OBJNAME parameter_list RAB NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, NULL, $6, $3);}
   ;
 
 parameter_list:
@@ -86,6 +89,12 @@ fragments:
 | fragments NEWLN           {$1->push_back(new TextFragment(newline_str)); $$ = $1;}
 | fragments TEXT            {$1->push_back(new TextFragment($2)); $$ = $1;}
 | fragments placeholder     {$1->push_back($2); $$ = $1;}
+  ;
+
+single_line_fragments:
+   /* empty */                      {$$ = new std::vector<Fragment*>;}
+| single_line_fragments TEXT        {$1->push_back(new TextFragment($2)); $$ = $1;}
+| single_line_fragments placeholder {$1->push_back($2); $$ = $1;}
   ;
 
 placeholder:
