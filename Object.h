@@ -14,6 +14,7 @@ class Object {
   public:
     std::string objName;
     std::vector<Fragment*> fragments;
+    std::vector<std::string> parameters;
     subobjects_map subObjects;
 
   std::vector<Fragment*> get_fragments() {
@@ -32,6 +33,7 @@ class Object {
    */
   Object* get_random_subobject(std::string name);
 
+  std::vector<std::string> get_parameters() {return parameters;};
 };
 
 #endif

@@ -23,8 +23,9 @@ class Fragment {
      * Object* root: the root which includes all other objects.
      * Object* current_object: The object that is currently being rendered.
      */
-    virtual std::string render(Object*, ObjectInstance*) {return "";};
+    virtual std::string render(Object*, ObjectInstance*, std::vector<ObjectInstance*>) {return "";};
     virtual std::string get_variableName() {return "";};
+    virtual std::vector<std::string> get_parameters() {return std::vector<std::string>();};
 };
 
 #endif

@@ -10,7 +10,7 @@ class TextFragment: public Fragment {
   public:
     TextFragment( std::string* str );
     void print() override;
-    std::string render(Object*, ObjectInstance*) override;
+    std::string render(Object*, ObjectInstance*, std::vector<ObjectInstance*>) override;
 };
 
 #endif

@@ -1,0 +1,59 @@
+<TOP>
+[VAR:ROOT.OBJ] is [ROOT.COPY(VAR)].
+[ROOT.COPY(VAR2)] is [VAR2:ROOT.OBJ].
+
+[ALL:ROOT.ALL(VAR, VAR2)]
+or from another perspective
+[ROOT.ALL(VAR2, VAR)]
+
+changed parameters with same variable name
+[ALL:ROOT.ALL(VAR2, VAR)]
+</TOP>
+
+<OBJ>
+A
+</OBJ>
+<OBJ>
+B
+</OBJ>
+<OBJ>
+C
+</OBJ>
+<OBJ>
+D
+</OBJ>
+<OBJ>
+E
+</OBJ>
+<OBJ>
+F
+</OBJ>
+<OBJ>
+G
+</OBJ>
+<OBJ>
+H
+</OBJ>
+<OBJ>
+I
+</OBJ>
+<OBJ>
+J
+</OBJ>
+<OBJ>
+K
+</OBJ>
+<OBJ>
+L
+</OBJ>
+<OBJ>
+M
+</OBJ>
+
+<COPY(PARAM)>
+[PARAM:ROOT.OBJ]
+</COPY>
+
+<ALL(P1, P2)>
+Got [P1:ROOT.OBJ] and [P2:ROOT.OBJ].
+</ALL>

@@ -17,7 +17,8 @@ int interpStory(Object* root, unsigned int seed = 0){
 //  std::cout << "Render result:" << std::endl;
 
   ObjectInstance root_instance = ObjectInstance(root);
-  std::string result = root_instance.render(root, path);
+  std::vector<ObjectInstance*> parameters;
+  std::string result = root_instance.render(root, path, parameters);
   std::cout << result << std::endl;
   return 0;
 }

@@ -13,6 +13,7 @@
   Object* newObject(std::string* objName
                    ,std::vector<Fragment*>* fragments
                    ,subobjects_map* subObjects
+                   ,std::vector<std::string>* parameters
                    );
 
   subobjects_map* addObject(Object* obj, subobjects_map* previous);
@@ -26,15 +27,14 @@
   std::string* ObjName;
   std::string* Placeholder;
   std::string* Text;
-  std::string* VarName;
+  std::vector<std::string>* ParameterList;
   subobjects_map* subObjects;
   std::vector<Fragment*>* fragments;
   Fragment* fragment;
 }
 
-%token ELAB LAB RAB LSB RSB NEWLN COLON DOT
+%token ELAB LAB RAB LSB RSB LRB RRB COMMA NEWLN COLON DOT
 %token <ObjName> OBJNAME
-%token <VarName> VARNAME
 %token <Placeholder> PLACEHOLDER
 %token <Text> TEXT
 
@@ -44,7 +44,9 @@
 %type<object> object
 %type<fragments> fragments
 %type<fragment> placeholder
-%type<VarName> varname
+%type<ObjName> varname
+%type<ParameterList> parameter_list
+%type<ParameterList> parameters
 
 %%
 
@@ -65,8 +67,18 @@ newlines:
   ;
 
 object:
-  LAB OBJNAME RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $5, NULL);}
-| LAB OBJNAME RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $5, $7);}
+  LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $6, NULL, $3);}
+| LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $6, $8, $3);}
+  ;
+
+parameter_list:
+  /* empty */               {$$ = new std::vector<std::string>;}
+| LRB parameters RRB        {$$ = $2;}
+  ;
+
+parameters:
+  OBJNAME                   {$$ = new std::vector<std::string>; $$->push_back(*$1); }
+| parameters COMMA OBJNAME  {$1->push_back(*$3); $$ = $1;}
   ;
 
 fragments:
@@ -77,13 +89,13 @@ fragments:
   ;
 
 placeholder:
-  LSB varname RSB               {$$ = new PlaceholderFragment($2);}
-| LSB VARNAME COLON varname RSB {$$ = new PlaceholderFragment($4, $2);}
+  LSB varname parameter_list RSB               {$$ = new PlaceholderFragment($2, $3);}
+| LSB OBJNAME COLON varname parameter_list RSB {$$ = new PlaceholderFragment($4, $5, $2);}
   ;
 
 varname:
-  VARNAME {$$ = $1;}
-| VARNAME DOT varname  {$1->append("."); $1->append(*$3); $$ = $1;}
+  OBJNAME {$$ = $1;}
+| OBJNAME DOT varname  {$1->append("."); $1->append(*$3); $$ = $1;}
   ;
 
 %%
@@ -107,6 +119,7 @@ subobjects_map* addObject(Object* obj, subobjects_map* previous){
 Object* newObject(std::string* objName
                  ,std::vector<Fragment*>* fragments
                  ,subobjects_map* subObjects
+                 ,std::vector<std::string>* parameters
                  ){
 
   // Create object
@@ -114,6 +127,7 @@ Object* newObject(std::string* objName
   if (objName)    obj->objName = *objName;
   if (fragments)  obj->fragments = *fragments;
   if (subObjects) obj->subObjects = *subObjects;
+  if (parameters) obj->parameters = *parameters;
   return obj;
 }
 
