@@ -43,6 +43,7 @@ Run the tests with *./Test.sh*.
 
 # Syntax
 See the examples folder for well... examples.
+*examples/shadowrun\_mission.and* is the most complete example.
 
 ## Objects
 An Andersen file contains objects with text and placeholders. When the file is

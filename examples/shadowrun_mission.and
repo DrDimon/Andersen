@@ -1,0 +1,87 @@
+<TOP>
+A contact from [ROOT.CORP] wants the shadowrunners to [ROOT.MISSION(TARGETCORP)].
+[ROOT.LIMIT]
+
+The target site is [ROOT.SITE].
+
+During the mission, [ROOT.TWIST(TARGETCORP)].
+</TOP>
+
+<CORP>Aries Macrotechnology</CORP>
+<CORP>Aztechnology</CORP>
+<CORP>Evo Corporation</CORP>
+<CORP>Horizon</CORP>
+<CORP>Mitsuhama Computer Technoligies</CORP>
+<CORP>NeoNET</CORP>
+<CORP>Renraku Computer Systems</CORP>
+<CORP>Saeder Krupp Heavy Industries</CORP>
+<CORP>Shiawase Corporation</CORP>
+<CORP>Wuxing Incorporated</CORP>
+<CORP>a minor corp</CORP>
+<CORP>the government</CORP>
+<CORP>an activist group</CORP>
+<CORP>a criminal organisation</CORP>
+
+<PERSON>a double agent</PERSON>
+<PERSON>a family member</PERSON>
+<PERSON>a highranking leader</PERSON>
+<PERSON>a traitor</PERSON>
+<PERSON>an important scientist</PERSON>
+
+<MISSION(TARGETCORP)>assassinate [ROOT.PERSON] who is protected by [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>deliver [ROOT.MACGUFFIN] to [ROOT.PERSON]</MISSION>
+<MISSION(TARGETCORP)>destroy [ROOT.MACGUFFIN] from the vaults of [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>exfiltrate [ROOT.PERSON] from [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>gain info about [ROOT.MACGUFFIN] that belongs to [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>gain info about [ROOT.PERSON] who works for [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>infiltrate [ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>kidnap [ROOT.PERSON] who works for [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>plant fake information in the [TARGETCORP:ROOT.CORP] servers</MISSION>
+<MISSION(TARGETCORP)>protect [ROOT.PERSON] from [ROOT.PERSON]</MISSION>
+<MISSION(TARGETCORP)>protect [ROOT.PERSON] from [TARGETCORP:ROOT.CORP]</MISSION>
+<MISSION(TARGETCORP)>steal [ROOT.MACGUFFIN] from [TARGETCORP:ROOT.CORP]</MISSION>
+
+<LIMIT></LIMIT>// no limit
+<LIMIT>The contact requires it to be done [ROOT.LIM].</LIMIT>
+<LIMIT>The contact rewards extra if is done [ROOT.LIM].</LIMIT>
+
+<LIM>by placing a decoy</LIM>
+<LIM>immediately</LIM>
+<LIM>stealthy</LIM>
+<LIM>while removing all evidence that the target was there in the first place</LIM>
+<LIM>without the target knowing</LIM>
+
+<MACGUFFIN>blueprint for cutting edge technology</MACGUFFIN>
+<MACGUFFIN>a magical artefact</MACGUFFIN>
+<MACGUFFIN>secret intel about [ROOT.CORP]</MACGUFFIN>
+<MACGUFFIN>secret intel about [ROOT.PERSON]</MACGUFFIN>
+<MACGUFFIN>a new and dangerous weapon</MACGUFFIN>
+<MACGUFFIN>
+[STUFF] incriminating [ROOT.PERSON]
+  <STUFF>videos</STUFF>
+  <STUFF>photos</STUFF>
+  <STUFF>documents</STUFF>
+</MACGUFFIN>
+
+<TWIST(TARGETCORP)></TWIST> //No twist
+<TWIST(TARGETCORP)>their contact additionally wants them to [ROOT.MISSION(TARGETCORP)]</TWIST>
+<TWIST(TARGETCORP)>they discover that a third party is also operating at the target site</TWIST>
+<TWIST(TARGETCORP)>they find a friend, who should *not* be there</TWIST>
+<TWIST(TARGETCORP)>they find out that the contact is actually working for [TARGETCORP:ROOT.CORP]</TWIST>
+<TWIST(TARGETCORP)>they find out that the target could help them self immensely</TWIST>
+<TWIST(TARGETCORP)>they find out that the target is different than expected</TWIST>
+<TWIST(TARGETCORP)>they find out that their contact lied to them</TWIST>
+<TWIST(TARGETCORP)>they find out that they have been set up</TWIST>
+<TWIST(TARGETCORP)>they realize, for mysterious reasons, the security is extra high</TWIST>
+
+<SITE>a busy [ROOT.PLACE]</SITE>
+<SITE>a constantly moving vehicle</SITE>
+<SITE>a highly secret [ROOT.PLACE]</SITE>
+<SITE>a underground [ROOT.PLACE]</SITE>
+<SITE>an abandoned [ROOT.PLACE]</SITE>
+
+<PLACE>bunker</PLACE>
+<PLACE>industrial building</PLACE>
+<PLACE>military base</PLACE>
+<PLACE>office complex</PLACE>
+<PLACE>research lab</PLACE>
