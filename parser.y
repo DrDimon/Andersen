@@ -3,8 +3,11 @@
   #include <algorithm>
 
   #include "Object.h"
+  #include "ObjectPath.h"
   #include "PlaceholderFragment.h"
   #include "TextFragment.h"
+  #include "Expression.h"
+  #include "PathPart.h"
   #include "interpreter.cpp"
   #include "types.h"
 
@@ -14,6 +17,7 @@
                    ,std::vector<Fragment*>* fragments
                    ,subobjects_map* subObjects
                    ,std::vector<std::string>* parameters
+                   ,std::vector<Expression*>* expressions
                    );
 
   subobjects_map* addObject(Object* obj, subobjects_map* previous);
@@ -31,9 +35,21 @@
   subobjects_map* subObjects;
   std::vector<Fragment*>* fragments;
   Fragment* fragment;
+  std::vector<Expression*>* expressions;
+  ObjectPath* object_path;
+  Expression* expression;
+  int Int;
 }
 
-%token ELAB LAB RAB LSB RSB LRB RRB COMMA NEWLN COLON DOT
+%token SEMICOLON
+%token ASSIGN
+%left PLUS MINUS
+%left MULT DIV
+%left OR
+%left AND
+%left EQ LE GE NE LT GT
+%token <Int> INT
+%token LCB RCB ELAB LAB RAB LSB RSB LRB RRB COMMA NEWLN COLON DOT
 %token <ObjName> OBJNAME
 %token <Placeholder> PLACEHOLDER
 %token <Text> TEXT
@@ -45,9 +61,12 @@
 %type<fragments> fragments
 %type<fragments> single_line_fragments
 %type<fragment> placeholder
-%type<ObjName> varname
+%type<object_path> varname
 %type<ParameterList> parameter_list
 %type<ParameterList> parameters
+%type<expression> expression
+%type<expressions> expressions
+%type<expressions> inner_expressions
 
 %%
 
@@ -68,10 +87,38 @@ newlines:
   ;
 
 object:
-  LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $6, NULL, $3);}
-| LAB OBJNAME parameter_list RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $6, $8, $3);}
-| LAB OBJNAME parameter_list RAB single_line_fragments ELAB OBJNAME RAB {$$ = newObject($2, $5, NULL, $3);}
-| LAB OBJNAME parameter_list RAB NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, NULL, $6, $3);}
+  LAB OBJNAME parameter_list expressions RAB NEWLN fragments NEWLN ELAB OBJNAME RAB {$$ = newObject($2, $7, NULL, $3, $4);}
+| LAB OBJNAME parameter_list expressions RAB NEWLN fragments NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, $7, $9, $3, $4);}
+| LAB OBJNAME parameter_list expressions RAB single_line_fragments ELAB OBJNAME RAB {$$ = newObject($2, $6, NULL, $3, $4);}
+| LAB OBJNAME parameter_list expressions RAB NEWLN objects ELAB OBJNAME RAB {$$ = newObject($2, NULL, $7, $3, $4);}
+  ;
+
+expressions:
+  /* empty */                      { $$ = new std::vector<Expression*>;}
+| LCB inner_expressions RCB        { $$ = $2; }
+  ;
+
+inner_expressions:
+  /* empty */                            { $$ = new std::vector<Expression*>;}
+| expression SEMICOLON inner_expressions { $3->push_back($1); $$ = $3;}
+| OBJNAME DOT OBJNAME ASSIGN expression SEMICOLON inner_expressions { $7->push_back(new Assign(*$1, *$3, $5)); $$ = $7;}
+  ;
+
+expression:
+  INT                        { $$ = new Int($1);}
+| OBJNAME DOT OBJNAME        { $$ = new Variable(*$1, *$3);}
+| expression PLUS expression { $$ = new Add($1, $3);}
+| expression MINUS expression { $$ = new Sub($1, $3);}
+| expression MULT expression  { $$ = new Mult($1, $3);}
+| expression DIV expression   { $$ = new Div($1, $3);}
+| expression EQ expression   { $$ = new Eq($1, $3);}
+| expression LE expression   { $$ = new Le($1, $3);}
+| expression GE expression   { $$ = new Ge($1, $3);}
+| expression LT expression   { $$ = new Lt($1, $3);}
+| expression GT expression   { $$ = new Gt($1, $3);}
+| expression NE expression   { $$ = new Ne($1, $3);}
+| expression AND expression  { $$ = new And($1, $3);}
+| expression OR expression   { $$ = new Or($1, $3);}
   ;
 
 parameter_list:
@@ -98,13 +145,13 @@ single_line_fragments:
   ;
 
 placeholder:
-  LSB varname parameter_list RSB               {$$ = new PlaceholderFragment($2, $3);}
-| LSB OBJNAME COLON varname parameter_list RSB {$$ = new PlaceholderFragment($4, $5, $2);}
+  LSB varname RSB               {$$ = new PlaceholderFragment($2);}
+| LSB OBJNAME COLON varname RSB {$$ = new PlaceholderFragment($4, $2);}
   ;
 
 varname:
-  OBJNAME {$$ = $1;}
-| OBJNAME DOT varname  {$1->append("."); $1->append(*$3); $$ = $1;}
+  OBJNAME parameter_list {$$ = new ObjectPath(); $$->push_next_object(*$1, *$2);}
+| varname DOT OBJNAME parameter_list {$1->push_next_object(*$3, *$4); $$ = $1;}
   ;
 
 %%
@@ -129,6 +176,7 @@ Object* newObject(std::string* objName
                  ,std::vector<Fragment*>* fragments
                  ,subobjects_map* subObjects
                  ,std::vector<std::string>* parameters
+                 ,std::vector<Expression*>* expressions
                  ){
 
   // Create object
@@ -137,6 +185,7 @@ Object* newObject(std::string* objName
   if (fragments)  obj->fragments = *fragments;
   if (subObjects) obj->subObjects = *subObjects;
   if (parameters) obj->parameters = *parameters;
+  if (expressions) obj->expressions = *expressions;
   return obj;
 }
 

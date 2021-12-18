@@ -213,6 +213,64 @@ World
 </OBJECT>
 ```
 
+## Expressions
+
+Objects support using expressions to decide what objects are appropriate. A
+series of expressions may be included inside '{}' in the text object, separated
+with a ';':
+
+```
+<OBJECT(PARAM) {PARAM.varname = 1 + PARAM.varname; PARAM.varname <= 2;}>
+tekst [ROOT.OBJECT(PARAM)]
+</OBJECT>
+
+<OBJECT(PARAM) {PARAM.varname > 2;}>
+tekst
+</OBJECT>
+```
+
+There are two kinds of expressions. Assignments and Evaluations.
+
+###Evaluations:
+When a textobeject is considered as a replacement, any expressions are
+evaluated. If all expressions in the given textobject is true, then that object
+is added to the pool of possible replacements, and if one or more is evaluated
+to false, the object is not considered.
+
+At this point any assignments are considered true, and not evaluated.
+
+A variable name need not be defined or have a value assigned. If not, it will
+evaluate to 0.
+
+###Assignments:
+An assignment is an expression of the form: "PARAMETER\_NAME.variable\_name =
+[expression];". The names may have any casing. The expression is evaluated as
+an integer and assigned.
+
+Variables may be assigned any integer number. 0 is considered false, and
+anything else true.
+
+Assignments are only evaluated when the text object is selected. This means
+that in the example above, if PARAM.varname == 2 then the increment does not
+happen until it is selected, which is after the second expression
+(PARAM.varname <= 2) is evaluated.
+
+In short: expressions are evaluated twice. First all objects that are
+considered for replacement without assignments, then the single object that was
+selected has its assignments evaluated.
+
+### Examples
+
+Expressions can be used to repeat textobjects a certain number of times, as the
+previous example. It will print *tekst tekst tekst tekst* (assuming varname is
+0 or not set when called.
+
+Or it can be used to make certain textobjects available under certain
+conditions. For example the hero may only eat an apple if they picked it up
+earlier in the story.
+
+See examples/expressions\*.and for further examples.
+
 ## Comments
 
 Use // to create comments. They may be a little bit funky regarding newlines. I'm working on that...

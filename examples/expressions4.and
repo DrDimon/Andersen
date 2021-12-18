@@ -1,0 +1,24 @@
+<TOP>
+[ROOT.SET_VARS(VAR1, VAR2)]
+[ROOT.A(VAR1).B(VAR2)]
+</TOP>
+
+<SET_VARS(VAR1, VAR2) {VAR1.a = 1; VAR2.b = 2;}>
+ok
+</SET_VARS>
+
+<A(VAR1) {VAR1.a == 1;}>
+  <B(VAR2) {VAR2.b == 2;}>
+correct
+  </B>
+  <B(VAR2) {VAR2.b != 2;}>
+wrong
+  </B>
+</A>
+
+<A(VAR1) {VAR1.a != 1;}>
+wrong
+  <B(VAR)>
+wrong
+  </B>
+</A>

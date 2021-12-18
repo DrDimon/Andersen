@@ -14,15 +14,16 @@ ObjectInstance::ObjectInstance(Object* obj) {
 
 std::string ObjectInstance::render(Object* root
                                   ,ObjectPath path
-                                  ,std::vector<ObjectInstance*> parameters
+                                  ,std::map<PathPart*, std::vector<ObjectInstance*>> parameters
                                   ,std::string variable_name
                                   ) {
 
-  std::string next_subobject = path.pop_next_object();
+  PathPart* current_path = path.current_object();
+  PathPart* next_subobject = path.pop_next_object();
 
   // If this is the final object in the path, it should be evaluated:
-  if (next_subobject == "") {
-    std::string evaluation_key = get_evaluation_key(parameters);
+  if (next_subobject == NULL) {
+    std::string evaluation_key = get_evaluation_key(parameters[current_path]);
     std::map<std::string, std::string>::iterator evaluation_it = evaluations.find(evaluation_key);
 
     if(evaluation_it != evaluations.end()) {
@@ -30,7 +31,7 @@ std::string ObjectInstance::render(Object* root
     }
 
     std::string result = "";
-    move_parameters_to_namedObjects(parameters);
+    move_parameters_to_namedObjects(parameters[current_path], object->get_parameters());
 
     // Render each fragment:
     std::vector<Fragment*> fragments = object->get_fragments();
@@ -43,7 +44,7 @@ std::string ObjectInstance::render(Object* root
       } else {
         instance = get_named_objectinst(variable_name);
       }
-      std::vector<ObjectInstance*> parameters = create_parameter_list(elem->get_parameters());
+      std::map<PathPart*, std::vector<ObjectInstance*>> parameters = create_parameter_list(elem->get_parameters());
 
       result += elem->render(root, instance, parameters);
       // TODO: delete instance if it is not named.
@@ -54,19 +55,22 @@ std::string ObjectInstance::render(Object* root
   }
 
   // Otherwise we recurse through the path:
-  inst_subobjects_map_iterator existing_instance = subObjects.find(next_subobject);
+  inst_subobjects_map_iterator existing_instance = subObjects.find(next_subobject->get_path_name());
 
-  // If we didn't find the object, instantiate a new:
+  // If we didn't find the object that we are looking for according to the
+  // path, instantiate a new to save the instance:
   if (existing_instance == subObjects.end() ) {
     ObjectInstance* next_object_instance;
 
-    if (next_subobject == "ROOT") {
+    if (next_subobject->get_path_name() == "ROOT") {
       next_object_instance = new ObjectInstance(root);
     } else {
-      Object* next_object = object->get_random_subobject(next_subobject);
+      std::vector<std::string> next_obj_params = object->get_next_subobject_params(next_subobject->get_path_name());
+      move_parameters_to_namedObjects(parameters[next_subobject], next_obj_params);
+      Object* next_object = object->get_random_subobject(next_subobject->get_path_name(), namedObjects);
       next_object_instance = new ObjectInstance(next_object);
     }
-    subObjects.insert(std::pair<std::string, ObjectInstance*>(next_subobject, next_object_instance));
+    subObjects.insert(std::pair<std::string, ObjectInstance*>(next_subobject->get_path_name(), next_object_instance));
 
     return next_object_instance->render(root, path, parameters);
   }
@@ -91,12 +95,20 @@ ObjectInstance* ObjectInstance::get_named_objectinst(std::string name) {
   return result;
 }
 
-void ObjectInstance::move_parameters_to_namedObjects(std::vector<ObjectInstance*> parameters) {
+void ObjectInstance::move_parameters_to_namedObjects(std::vector<ObjectInstance*> parameters, std::vector<std::string> param_names) {
 
   // Check that we got the expected number of parameters:
-  std::vector<std::string> param_names = object->get_parameters();
   if (parameters.size() != param_names.size()) {
     std::cerr << "Parameter list of wrong size in " << object->objName << std::endl;
+    std::cerr << "Expected parameters: ";
+    for( std::string p : param_names ) {
+      std::cerr << p << ", ";
+    }
+    std::cerr << std::endl << "Received parameters: ";
+    for( ObjectInstance* o : parameters ) {
+      std::cerr << o->get_object()->obj_name() << ", ";
+    }
+    std::cerr << std::endl;
     exit(1);
   }
 
@@ -114,11 +126,16 @@ void ObjectInstance::move_parameters_to_namedObjects(std::vector<ObjectInstance*
   }
 }
 
-std::vector<ObjectInstance*> ObjectInstance::create_parameter_list(std::vector<std::string> parameter_names) {
+std::map<PathPart*, std::vector<ObjectInstance*>> ObjectInstance::create_parameter_list(std::map<PathPart*, std::vector<std::string>> parameter_names) {
+  std::map<PathPart*, std::vector<ObjectInstance*>> result;
 
-  std::vector<ObjectInstance*> result(parameter_names.size());
-  for (unsigned int i=0; i<parameter_names.size(); i++) {
-    result[i] = get_named_objectinst(parameter_names[i]);
+  std::map<PathPart*, std::vector<std::string>>::iterator it;
+  for( it = parameter_names.begin(); it != parameter_names.end(); it++) {
+    std::vector<ObjectInstance*> individual_result = std::vector<ObjectInstance*>(it->second.size());
+    for (unsigned int i=0; i<it->second.size(); i++) {
+      individual_result[i] = get_named_objectinst(it->second[i]);
+    }
+    result.insert(std::pair<PathPart*, std::vector<ObjectInstance*>>(it->first, individual_result));
   }
 
   return result;
@@ -133,4 +150,25 @@ std::string ObjectInstance::get_evaluation_key(std::vector<ObjectInstance*> para
   }
 
   return key;
+}
+
+int ObjectInstance::get_variable(std::string var_name) {
+  std::map<std::string, int>::iterator var_it = variables.find(var_name);
+
+  if (var_it != variables.end()) {
+    return var_it->second;
+  }
+
+  return 0;
+}
+
+void ObjectInstance::set_variable(std::string var_name, int value) {
+  variables[var_name] = value;
+  std::map<std::string, int>::iterator var_it = variables.find(var_name);
+
+  if (var_it != variables.end()) {
+    var_it->second = value;
+  } else {
+    variables.insert(std::pair<std::string, int>(var_name, value));
+  }
 }

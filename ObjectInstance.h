@@ -12,12 +12,13 @@ class ObjectInstance {
   inst_subobjects_map subObjects;
   inst_subobjects_map namedObjects;
   std::map<std::string, std::string> evaluations;
+  std::map<std::string, int> variables;
 
   public:
     ObjectInstance(Object* obj);
     std::string render(Object* root
                       ,ObjectPath path
-                      ,std::vector<ObjectInstance*> parameters
+                      ,std::map<PathPart*, std::vector<ObjectInstance*>> parameters
                       ,std::string variable_name = ""
                       );
 
@@ -27,6 +28,11 @@ class ObjectInstance {
      */
     ObjectInstance* get_named_objectinst(std::string name);
 
+    int get_variable(std::string var_name);
+    void set_variable(std::string var_name, int value);
+
+    Object* get_object() { return object; };
+
   private:
 
     /*
@@ -35,7 +41,7 @@ class ObjectInstance {
      *
      * If a ObjectInstance with a given name already exist, it is overwritten.
      */
-    void move_parameters_to_namedObjects(std::vector<ObjectInstance*> parameters);
+    void move_parameters_to_namedObjects(std::vector<ObjectInstance*> parameters, std::vector<std::string> param_names);
 
     /*
      * Create a list of parameters for rendering a placeholder.
@@ -49,7 +55,7 @@ class ObjectInstance {
      * These parameters are added to namedObjects, and are considered a
      * variable like any other.
      */
-    std::vector<ObjectInstance*> create_parameter_list(std::vector<std::string> parameter_names);
+    std::map<PathPart*, std::vector<ObjectInstance*>> create_parameter_list(std::map<PathPart*, std::vector<std::string>> parameter_names);
 
     /*
      * Create a string that is considered a unique key for that particular
@@ -61,6 +67,7 @@ class ObjectInstance {
      * of those parameters.
      */
     std::string get_evaluation_key(std::vector<ObjectInstance*> parameters);
+
 };
 
 #endif

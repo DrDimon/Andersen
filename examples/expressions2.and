@@ -1,0 +1,63 @@
+<TOP>
+[VAR:ROOT.A(VAR)]
+[VAR:ROOT.B(VAR)]
+[VAR:ROOT.A(VAR)] again
+[VAR:ROOT.C(VAR)]
+[VAR:ROOT.D(VAR)]
+[VAR:ROOT.E(VAR)]
+[VAR:ROOT.F(VAR)]
+[VAR:ROOT.G(VAR)]
+[VAR:ROOT.H(VAR)]
+</TOP>
+
+<A(VAR) {VAR.varname == 0; VAR.varname = 2;}>
+FIRST
+</A>
+
+<A(VAR) {VAR.varname == 1;}>
+WRONG
+</A>
+
+<B(VAR) {VAR.varname == 2; VAR.varname = 0; VAR.othername = 250 + 250;}>
+SECOND
+</B>
+
+<B(VAR) {VAR.varname == 1;}>
+WRONG
+</B>
+
+<C(VAR) {VAR.othername == 500;}>
+THIRD
+</C>
+
+<C(VAR) {VAR.othername == 0;}>
+WRONG
+</C>
+
+<D(VAR) {VAR.counter <= 5; VAR.counter = VAR.counter + 1;}>
+REPEAT [ROOT.D(VAR)]
+</D>
+
+<D(VAR) {VAR.counter == 6;}>
+END
+</D>
+
+<E(VAR) {VAR.varname == 0 || VAR.varname == 2; VAR.varname = 2;}>
+FOURTH
+</E>
+
+<E(VAR) {VAR.varname == 0 && VAR.varname == 2;}>
+WRONG
+</E>
+
+<F(VAR) {VAR.varname > 1 && VAR.varname < 3; VAR.precedence = 2 + 10*0;}>
+FIFTH
+</F>
+
+<G(VAR) {VAR.precedence == 2;}>
+SIXTH
+</G>
+
+<H(VAR) { 1 != 1 && 1 == 1 || 1 == 1;}>
+SEVENTH
+</H>

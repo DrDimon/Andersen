@@ -9,20 +9,18 @@ class ObjectInstance;
 class PlaceholderFragment: public Fragment {
   ObjectPath path;
   std::string variableName;
-  std::vector<std::string> parameters;
 
   public:
-    PlaceholderFragment( std::string* str
-                        ,std::vector<std::string>* params = NULL
+    PlaceholderFragment( ObjectPath* object_path = NULL
                         ,std::string* varName = NULL
                          );
     void print() override;
     std::string render(Object* root
                       ,ObjectInstance* current_object
-                      ,std::vector<ObjectInstance*> parameters
+                      ,std::map<PathPart*, std::vector<ObjectInstance*>> parameters
                       ) override;
     std::string get_variableName() override {return variableName;};
-    std::vector<std::string> get_parameters() override {return parameters;};
+    std::map<PathPart*, std::vector<std::string>> get_parameters() override;
 };
 
 #endif

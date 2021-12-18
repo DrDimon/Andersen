@@ -3,25 +3,31 @@
 #include <iostream>
 #include <sstream>
 
-ObjectPath::ObjectPath(std::string path){
-  full_path = path;
-  std::string next;
-  std::stringstream path_stream = std::stringstream(path);
-  while(std::getline(path_stream, next, '.')) {
-    object_path.push_back(next);
-  }
+void ObjectPath::push_next_object(std::string object_name, std::vector<std::string> parameter_names) {
+  full_path = full_path + (full_path == "" ? "" : ".") + object_name;
+  PathPart* new_part = new PathPart(object_name, parameter_names);
+  object_path.push_back(new_part);
 }
 
-std::string ObjectPath::pop_next_object() {
-  if( current_index == object_path.size() ){
-      return "";
-  }
-
+PathPart* ObjectPath::pop_next_object() {
   current_index++;
-  return object_path[current_index-1];
+  return get_path_part(current_index-1);
 }
 
+PathPart* ObjectPath::current_object() {
+  if( current_index > object_path.size() || current_index == 0){
+      return NULL;
+  }
+
+  return get_path_part(current_index-1);
+}
 void ObjectPath::print() {
   std::cout << "full path: " << full_path << std::endl;
-  std::cout << "index: " << current_index << ": " << object_path[current_index] << std::endl;
+  PathPart* pp = get_path_part(current_index);
+  std::cout << "index: " << current_index <<  ": " << (pp ? pp->get_path_name() : "<NONE>") << std::endl;
 }
+
+PathPart* ObjectPath::get_path_part(int index) {
+  if (index >= (int)object_path.size()) return NULL;
+  return object_path[index];
+};

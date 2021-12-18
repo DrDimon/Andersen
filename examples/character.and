@@ -1,0 +1,325 @@
+<TOP>
+[CHR:ROOT.CHARACTER(CHR).NAME] [CHR:ROOT.CHARACTER(CHR).SURNAME(CHR)]:
+A [ROOT.ADJECTIVE] [ROOT.NOUN(CHR)] [ROOT.MOTIVATION(CHR)].
+
+[ROOT.DETAIL(CHR)].
+</TOP>
+
+<ADJECTIVE>aggressive</ADJECTIVE>
+<ADJECTIVE>ambitious</ADJECTIVE>
+<ADJECTIVE>angry</ADJECTIVE>
+<ADJECTIVE>armed</ADJECTIVE>
+<ADJECTIVE>bastard</ADJECTIVE>
+<ADJECTIVE>beautiful</ADJECTIVE>
+<ADJECTIVE>bitter</ADJECTIVE>
+<ADJECTIVE>bold</ADJECTIVE>
+<ADJECTIVE>brilliant</ADJECTIVE>
+<ADJECTIVE>clumsy</ADJECTIVE>
+<ADJECTIVE>confident</ADJECTIVE>
+<ADJECTIVE>corrupt</ADJECTIVE>
+<ADJECTIVE>courageous</ADJECTIVE>
+<ADJECTIVE>cowardly</ADJECTIVE>
+<ADJECTIVE>cruel</ADJECTIVE>
+<ADJECTIVE>cunning</ADJECTIVE>
+<ADJECTIVE>cursed</ADJECTIVE>
+<ADJECTIVE>defeated</ADJECTIVE>
+<ADJECTIVE>deform</ADJECTIVE>
+<ADJECTIVE>drunk</ADJECTIVE>
+<ADJECTIVE>elegant</ADJECTIVE>
+<ADJECTIVE>exhausted</ADJECTIVE>
+<ADJECTIVE>failed</ADJECTIVE>
+<ADJECTIVE>fanatic</ADJECTIVE>
+<ADJECTIVE>fat</ADJECTIVE>
+<ADJECTIVE>filthy</ADJECTIVE>
+<ADJECTIVE>foolish</ADJECTIVE>
+<ADJECTIVE>frightened</ADJECTIVE>
+<ADJECTIVE>gambling</ADJECTIVE>
+<ADJECTIVE>generous</ADJECTIVE>
+<ADJECTIVE>greedy</ADJECTIVE>
+<ADJECTIVE>happy</ADJECTIVE>
+<ADJECTIVE>hopeless</ADJECTIVE>
+<ADJECTIVE>huge</ADJECTIVE>
+<ADJECTIVE>lazy</ADJECTIVE>
+<ADJECTIVE>lost</ADJECTIVE>
+<ADJECTIVE>loyal</ADJECTIVE>
+<ADJECTIVE>manic</ADJECTIVE>
+<ADJECTIVE>muscular</ADJECTIVE>
+<ADJECTIVE>nervous</ADJECTIVE>
+<ADJECTIVE>old</ADJECTIVE>
+<ADJECTIVE>paranoid</ADJECTIVE>
+<ADJECTIVE>pious</ADJECTIVE>
+<ADJECTIVE>possessed</ADJECTIVE>
+<ADJECTIVE>quiet</ADJECTIVE>
+<ADJECTIVE>righteous</ADJECTIVE>
+<ADJECTIVE>sad</ADJECTIVE>
+<ADJECTIVE>scarred</ADJECTIVE>
+<ADJECTIVE>schizophrenic</ADJECTIVE>
+<ADJECTIVE>shy</ADJECTIVE>
+<ADJECTIVE>sick</ADJECTIVE>
+<ADJECTIVE>stunning</ADJECTIVE>
+<ADJECTIVE>superstitious</ADJECTIVE>
+<ADJECTIVE>thin</ADJECTIVE>
+<ADJECTIVE>tiny</ADJECTIVE>
+<ADJECTIVE>wanted</ADJECTIVE>
+<ADJECTIVE>weak</ADJECTIVE>
+<ADJECTIVE>wealthy</ADJECTIVE>
+<ADJECTIVE>wounded</ADJECTIVE>
+
+<NOUN(CHR)>alcoholic</NOUN>
+<NOUN(CHR)>apothecary</NOUN>
+<NOUN(CHR)>archer</NOUN>
+<NOUN(CHR)>artist</NOUN>
+<NOUN(CHR)>barber</NOUN>
+<NOUN(CHR)>bard</NOUN>
+<NOUN(CHR)>beggar</NOUN>
+<NOUN(CHR)>builder</NOUN>
+<NOUN(CHR)>burglar</NOUN>
+<NOUN(CHR)>carpenter</NOUN>
+<NOUN(CHR)>city guard</NOUN>
+<NOUN(CHR)>commander</NOUN>
+<NOUN(CHR)>courtier</NOUN>
+<NOUN(CHR)>criminal</NOUN>
+<NOUN(CHR)>deserter</NOUN>
+<NOUN(CHR)>diplomat</NOUN>
+<NOUN(CHR)>doctor</NOUN>
+<NOUN(CHR)>entertainer</NOUN>
+<NOUN(CHR)>farmer</NOUN>
+<NOUN(CHR) {CHR.sex==1;}>father</NOUN>
+<NOUN(CHR)>fisherman</NOUN>
+<NOUN(CHR)>fishmonger</NOUN>
+<NOUN(CHR)>guard captain</NOUN>
+<NOUN(CHR)>hunter</NOUN>
+<NOUN(CHR)>inventor</NOUN>
+<NOUN(CHR)>judge</NOUN>
+<NOUN(CHR)>knight</NOUN>
+<NOUN(CHR)>librarian</NOUN>
+<NOUN(CHR)>lord</NOUN>
+<NOUN(CHR)>mayor</NOUN>
+<NOUN(CHR)>mercenary</NOUN>
+<NOUN(CHR)>merchant</NOUN>
+<NOUN(CHR)>messenger</NOUN>
+<NOUN(CHR) {CHR.sex==1;}>monk</NOUN>
+<NOUN(CHR) {CHR.sex==2;}>mother</NOUN>
+<NOUN(CHR)>murderer</NOUN>
+<NOUN(CHR)>necromancer</NOUN>
+<NOUN(CHR)>nobleman</NOUN>
+<NOUN(CHR)>outcast</NOUN>
+<NOUN(CHR)>philosopher</NOUN>
+<NOUN(CHR)>pirate</NOUN>
+<NOUN(CHR)>priest</NOUN>
+<NOUN(CHR) {CHR.sex==1;}>prince</NOUN>
+<NOUN(CHR) {CHR.sex==2;}>princess</NOUN>
+<NOUN(CHR)>sailor</NOUN>
+<NOUN(CHR)>servant</NOUN>
+<NOUN(CHR)>shepherd</NOUN>
+<NOUN(CHR)>slave</NOUN>
+<NOUN(CHR)>slaver</NOUN>
+<NOUN(CHR)>soldier</NOUN>
+<NOUN(CHR)>sorcerer</NOUN>
+<NOUN(CHR)>spy</NOUN>
+<NOUN(CHR)>stable boy</NOUN>
+<NOUN(CHR)>tavern keeper</NOUN>
+<NOUN(CHR)>traitor</NOUN>
+<NOUN(CHR)>traveller</NOUN>
+<NOUN(CHR)>undertaker</NOUN>
+<NOUN(CHR)>warlock</NOUN>
+<NOUN(CHR)>warrior</NOUN>
+<NOUN(CHR) {CHR.sex==2;}>witch</NOUN>
+<NOUN(CHR)>wizard</NOUN>
+<NOUN(CHR)>woodcutter</NOUN>
+<NOUN(CHR)>writer</NOUN>
+
+<MOTIVATION(CHR)>defending the weak</MOTIVATION>
+<MOTIVATION(CHR)>running from the law after [CHR:ROOT.CHARACTER(CHR).PRONOUN] [ROOT.ACCUSATION(CHR)]</MOTIVATION>
+<MOTIVATION(CHR)>hiding from [ROOT.FACTION]</MOTIVATION>
+<MOTIVATION(CHR)>seeking redemption after [CHR:ROOT.CHARACTER(CHR).PRONOUN] [ROOT.ACCUSATION(CHR)]</MOTIVATION>
+<MOTIVATION(CHR)>trying to get away with [ROOT.CRIME]</MOTIVATION>
+<MOTIVATION(CHR)>obeying every word of [ROOT.DEITY]</MOTIVATION>
+<MOTIVATION(CHR)>out to obtain [ROOT.OBJECT]</MOTIVATION>
+<MOTIVATION(CHR)>out to gain [ROOT.AMBITION]</MOTIVATION>
+<MOTIVATION(CHR)>trying to spread the word of [ROOT.DEITY]</MOTIVATION>
+<MOTIVATION(CHR)>seeking justice against someone who committed [ROOT.CRIME] against him</MOTIVATION>
+<MOTIVATION(CHR)>who wants to join [ROOT.FACTION]</MOTIVATION>
+<MOTIVATION(CHR)>who wants to leave [ROOT.FACTION]</MOTIVATION>
+<MOTIVATION(CHR)>
+who must prove himself worthy [GOAL(CHR)]
+  <GOAL(CHR)>of [CHR:ROOT.CHARACTER(CHR).PRONOUN2] profession</GOAL>
+  <GOAL(CHR)>to [CHR:ROOT.CHARACTER(CHR).PRONOUN2] family</GOAL>
+  <GOAL(CHR)>to [CHR:ROOT.CHARACTER(CHR).PRONOUN2] village</GOAL>
+  <GOAL(CHR)>to [ROOT.DEITY]</GOAL>
+</MOTIVATION>
+<MOTIVATION(CHR)>
+seeking to revenge [CHR:ROOT.CHARACTER(CHR).PRONOUN2] [REVENGE]
+  <REVENGE>[ROOT.RELATION] who was killed by [ROOT.FACTION]</REVENGE>
+  <REVENGE>murdered [ROOT.RELATION]</REVENGE>
+  <REVENGE>[ROOT.RELATION] who was sacrificed to [ROOT.DEITY]</REVENGE>
+</MOTIVATION>
+<MOTIVATION(CHR)>
+searching for [CHR:ROOT.CHARACTER(CHR).PRONOUN2] [ROOT.RELATION] who [FATE]
+  <FATE>disappeared under mysterious circumstances</FATE>
+  <FATE>ran away</FATE>
+  <FATE>was taken away</FATE>
+  <FATE>was kidnapped by [ROOT.FACTION]</FATE>
+</MOTIVATION>
+
+<RELATION>best friend</RELATION>
+<RELATION>brother</RELATION>
+<RELATION>child</RELATION>
+<RELATION>father</RELATION>
+<RELATION>mother</RELATION>
+<RELATION>parents</RELATION>
+<RELATION>partner</RELATION>
+<RELATION>sister</RELATION>
+
+<ACCUSATION(CHR)>according to rumors, have committed a [ROOT.CRIME]</ACCUSATION>
+<ACCUSATION(CHR)>was accused of [ROOT.CRIME]</ACCUSATION>
+<ACCUSATION(CHR)>was convicted of [ROOT.CRIME]</ACCUSATION>
+<ACCUSATION(CHR)>was falsely accused of [ROOT.CRIME]</ACCUSATION>
+<ACCUSATION(CHR)>was framed for [ROOT.CRIME]</ACCUSATION>
+<ACCUSATION(CHR)>admitted to committing [ROOT.CRIME] in order to protect [CHR:ROOT.CHARACTER(CHR).PRONOUN2] [ROOT.RELATION]</ACCUSATION>
+
+<CRIME>a crime</CRIME>
+<CRIME>betrayal</CRIME>
+<CRIME>murder</CRIME>
+<CRIME>thievery</CRIME>
+<CRIME>desertion</CRIME>
+<CRIME>stealing [ROOT.OBJECT]</CRIME>
+<CRIME>smuggling [ROOT.OBJECT]</CRIME>
+
+<DEITY>
+the [GOD] of [EXPERTISE]
+  <GOD>God</GOD>
+  <GOD>Goddess</GOD>
+  <GOD>Spirit</GOD>
+  <EXPERTISE>Art</EXPERTISE>
+  <EXPERTISE>Death</EXPERTISE>
+  <EXPERTISE>Life</EXPERTISE>
+  <EXPERTISE>Love</EXPERTISE>
+  <EXPERTISE>Nature</EXPERTISE>
+  <EXPERTISE>Progress</EXPERTISE>
+  <EXPERTISE>the Sea</EXPERTISE>
+  <EXPERTISE>War</EXPERTISE>
+</DEITY>
+<DEITY>a death cult</DEITY>
+<DEITY>a doomsday cult</DEITY>
+
+<OBJECT>a magic relic</OBJECT>
+<OBJECT>a rare book</OBJECT>
+<OBJECT>an artefact of [ROOT.DEITY]</OBJECT>
+<OBJECT>a stolen object that belongs to [ROOT.FACTION]</OBJECT>
+<OBJECT>
+a [ADJECTIVE] [ITEM]
+  <ITEM>weapon</ITEM>
+  <ITEM>necklace</ITEM>
+  <ITEM>amulet</ITEM>
+  <ITEM>gemstone</ITEM>
+  <ADJECTIVE>valuable</ADJECTIVE>
+  <ADJECTIVE>stolen</ADJECTIVE>
+  <ADJECTIVE>magic</ADJECTIVE>
+</OBJECT>
+
+<AMBITION>eternal life</AMBITION>
+<AMBITION>political power</AMBITION>
+<AMBITION>unfathomable wealth</AMBITION>
+<AMBITION>obtain [ROOT.OBJECT]</AMBITION>
+<AMBITION>fame</AMBITION>
+
+<DETAIL(CHR)>[ROOT.DETAIL(CHR)] and [ROOT.DETAIL(CHR)]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] worships [ROOT.DEITY]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] formerly worshipped [ROOT.DEITY]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] takes care of [CHR:ROOT.CHARACTER(CHR).PRONOUN2] [ROOT.RELATION]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] [ROOT.ACCUSATION(CHR)]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] used to be a [ROOT.NOUN(CHR)]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] used to be much more [ROOT.ADJECTIVE]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] is no longer in contact with [CHR:ROOT.CHARACTER(CHR).PRONOUN2] [ROOT.RELATION]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] owns [ROOT.OBJECT]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] secretly works for [ROOT.FACTION]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] has previously worked for [ROOT.FACTION]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] has publicly declared sympathy for [ROOT.FACTION]</DETAIL>
+<DETAIL(CHR)>[CHR:ROOT.CHARACTER(CHR).PRONOUN] is indebted to [ROOT.FACTION]</DETAIL>
+<DETAIL(CHR)>everything was taken away from him by [ROOT.FACTION]</DETAIL>
+<DETAIL(CHR)>
+[CHR:ROOT.CHARACTER(CHR).PRONOUN] grew up [PLACE]
+  <PLACE>far away</PLACE>
+  <PLACE>in another city</PLACE>
+  <PLACE>in another kingdom</PLACE>
+  <PLACE>in the city</PLACE>
+  <PLACE>in the woods</PLACE>
+  <PLACE>on the country</PLACE>
+  <PLACE>travelling the world</PLACE>
+</DETAIL>
+
+<FACTION>the local lord</FACTION>
+<FACTION>the king</FACTION>
+<FACTION>a band of bandits</FACTION>
+<FACTION>a group of rebels</FACTION>
+<FACTION>a band of thieves</FACTION>
+<FACTION>an assassins guild</FACTION>
+<FACTION>the neighbouring king</FACTION>
+<FACTION>a cabal of sorcerers</FACTION>
+<FACTION>worshippers of [ROOT.DEITY]</FACTION>
+<FACTION>a guild of powerful merchants</FACTION>
+
+<CHARACTER(CHR) {CHR.sex=1;}>
+  <SURNAME(CHR)>[ROOT.SURNAME(CHR)]</SURNAME>
+   <SURNAME(CHR)>Son of [ROOT.CHARACTER(NEW).NAME]</SURNAME>
+  <PRONOUN>he</PRONOUN>
+  <PRONOUN2>his</PRONOUN2>
+
+  <NAME>Arthur</NAME>
+  <NAME>Balin</NAME>
+  <NAME>Bedivere</NAME>
+  <NAME>Constantin</NAME>
+  <NAME>Ector</NAME>
+  <NAME>Edward</NAME>
+  <NAME>Elyan</NAME>
+  <NAME>Galahad</NAME>
+  <NAME>Hengest</NAME>
+  <NAME>Kahedin</NAME>
+  <NAME>Lucan</NAME>
+  <NAME>Melehan</NAME>
+  <NAME>Modron</NAME>
+  <NAME>Morien</NAME>
+  <NAME>Mordred</NAME>
+  <NAME>Lionel</NAME>
+  <NAME>Oberon</NAME>
+  <NAME>Pellinore</NAME>
+  <NAME>Pellinore</NAME>
+  <NAME>Percival</NAME>
+  <NAME>Taliesin</NAME>
+  <NAME>Tristan</NAME>
+  <NAME>William</NAME>
+</CHARACTER>
+
+<CHARACTER(CHR) {CHR.sex=2;}>
+  <SURNAME(CHR)>[ROOT.SURNAME(CHR)]</SURNAME>
+  <SURNAME(CHR)>Daughter of [ROOT.CHARACTER(NEW).NAME]</SURNAME>
+  <PRONOUN>she</PRONOUN>
+  <PRONOUN2>her</PRONOUN2>
+
+  <NAME>Arthes</NAME>
+  <NAME>Caelia</NAME>
+  <NAME>Elaine</NAME>
+  <NAME>Ella</NAME>
+  <NAME>Evaine</NAME>
+  <NAME>Olwyn</NAME>
+  <NAME>Fae</NAME>
+  <NAME>Guinevere</NAME>
+  <NAME>Igraine</NAME>
+  <NAME>Isolde</NAME>
+  <NAME>Laudine</NAME>
+  <NAME>Viviane</NAME>
+  <NAME>Wynn</NAME>
+  <NAME>Lunete</NAME>
+  <NAME>Lynette</NAME>
+  <NAME>Anna</NAME>
+  <NAME>Morgause</NAME>
+  <NAME>Helaine</NAME>
+  <NAME>Nimue</NAME>
+
+</CHARACTER>
+
+<SURNAME(CHR)>The [ROOT.ADJECTIVE]</SURNAME>
+<SURNAME(CHR)>The [ROOT.NOUN(CHR)]</SURNAME>
+<SURNAME(CHR)>Finnley</SURNAME>
+<SURNAME(CHR)>Coghlan</SURNAME>

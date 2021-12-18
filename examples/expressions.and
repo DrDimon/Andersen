@@ -1,0 +1,31 @@
+<TOP>
+[VAR:ROOT.A(VAR)]
+</TOP>
+
+<A(VAR) {1 == 1;}>
+A0
+</A>
+
+<A(VAR) {VAR.varname == 1;VAR.varname=1;}>
+A1
+</A>
+
+<A(VAR) {0 && 1 || 0;}>
+A2
+</A>
+
+<A(VAR) {0 != 0;}>
+A3
+</A>
+
+<A(VAR){ 1 == 2;}>
+A4
+</A>
+
+<A(VAR){ 1 >= 2;}>
+A5
+</A>
+
+<A(VAR){ 2 <= 1;}>
+A6
+</A>

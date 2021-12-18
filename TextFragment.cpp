@@ -10,6 +10,6 @@ void TextFragment::print() {
   std::cout << "tf: " << text << std::endl;
 }
 
-std::string TextFragment::render(Object*, ObjectInstance*, std::vector<ObjectInstance*>) {
+std::string TextFragment::render(Object*, ObjectInstance*, std::map<PathPart*, std::vector<ObjectInstance*>>) {
   return text;
 }

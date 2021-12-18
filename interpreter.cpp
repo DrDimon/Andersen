@@ -13,11 +13,12 @@ int interpStory(Object* root, unsigned int seed = 0){
   std::srand(seed);
 
 //  root->print();
-  ObjectPath path = ObjectPath("TOP");
+  ObjectPath path = ObjectPath();
+  path.push_next_object("TOP", std::vector<std::string>());
 //  std::cout << "Render result:" << std::endl;
 
   ObjectInstance root_instance = ObjectInstance(root);
-  std::vector<ObjectInstance*> parameters;
+  std::map<PathPart*, std::vector<ObjectInstance*>> parameters;
   std::string result = root_instance.render(root, path, parameters);
   std::cout << result << std::endl;
   return 0;
