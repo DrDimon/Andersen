@@ -231,7 +231,7 @@ tekst
 
 There are two kinds of expressions. Assignments and Evaluations.
 
-###Evaluations:
+### Evaluations:
 
 When a textobeject is considered as a replacement, any expressions are
 evaluated. If all expressions in the given textobject is true, then that object
@@ -243,7 +243,7 @@ At this point any assignments are considered true, and not evaluated.
 A variable name need not be defined or have a value assigned. If not, it will
 evaluate to 0.
 
-###Assignments:
+### Assignments:
 
 An assignment is an expression of the form: "PARAMETER\_NAME.variable\_name =
 [expression];". The names may have any casing. The expression is evaluated as
