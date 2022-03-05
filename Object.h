@@ -16,6 +16,7 @@ class Object {
     std::vector<Fragment*> fragments;
     std::vector<std::string> parameters;
     subobjects_map subObjects;
+    include_map includedObjects;
     std::vector<Expression*> expressions;
 
   std::vector<Fragment*> get_fragments() {
@@ -26,7 +27,7 @@ class Object {
    * Print the object and fragments recursively without resolving placeholders.
    * This is mostly for debugging purposes.
    */
-  void print();
+  void print(std::string indent = "");
 
   void print_expressions(inst_subobjects_map namedObjects);
 

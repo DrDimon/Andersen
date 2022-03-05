@@ -17,6 +17,15 @@ typedef std::map<std::string, std::vector<Object*>>::iterator subobjects_map_ite
 typedef std::map<std::string, ObjectInstance*> inst_subobjects_map;
 typedef std::map<std::string, ObjectInstance*>::iterator inst_subobjects_map_iterator;
 
+typedef std::map<std::string, Object*> include_map;
+typedef std::map<std::string, Object*>::iterator include_map_iterator;
+
+class SubObjectContainer {
+    public:
+      subobjects_map subObjects;
+      include_map includedObjects;
+};
+
 class Fragment {
   public:
     virtual void print() {};

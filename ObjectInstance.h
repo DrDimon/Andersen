@@ -13,9 +13,11 @@ class ObjectInstance {
   inst_subobjects_map namedObjects;
   std::map<std::string, std::string> evaluations;
   std::map<std::string, int> variables;
+  ObjectInstance* rootInstance;
+  std::map<std::string, ObjectInstance*> includedInstances;
 
   public:
-    ObjectInstance(Object* obj);
+    ObjectInstance(Object* obj, ObjectInstance* rootInstance);
     std::string render(Object* root
                       ,ObjectPath path
                       ,std::map<PathPart*, std::vector<ObjectInstance*>> parameters
@@ -32,6 +34,8 @@ class ObjectInstance {
     void set_variable(std::string var_name, int value);
 
     Object* get_object() { return object; };
+    ObjectInstance* get_rootInstance() { return rootInstance; };
+    ObjectInstance* getOrSetIncludedInstance(std::string includeName, Object* includedObject);
 
   private:
 
@@ -55,6 +59,8 @@ class ObjectInstance {
      * These parameters are added to namedObjects, and are considered a
      * variable like any other.
      */
+    // TODO: har jeg lyst til at den må være public??
+public:
     std::map<PathPart*, std::vector<ObjectInstance*>> create_parameter_list(std::map<PathPart*, std::vector<std::string>> parameter_names);
 
     /*
@@ -66,6 +72,7 @@ class ObjectInstance {
      * This is used as key in the evaluations map, to get a previous evaluation
      * of those parameters.
      */
+private:
     std::string get_evaluation_key(std::vector<ObjectInstance*> parameters);
 
 };

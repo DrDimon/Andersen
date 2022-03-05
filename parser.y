@@ -5,6 +5,7 @@
   #include "Object.h"
   #include "ObjectPath.h"
   #include "PlaceholderFragment.h"
+  #include "IncludeFragment.h"
   #include "TextFragment.h"
   #include "Expression.h"
   #include "PathPart.h"
@@ -15,12 +16,13 @@
   void yyerror(char const *);
   Object* newObject(std::string* objName
                    ,std::vector<Fragment*>* fragments
-                   ,subobjects_map* subObjects
+                   ,SubObjectContainer* subObjects
                    ,std::vector<std::string>* parameters
                    ,std::vector<Expression*>* expressions
                    );
 
   subobjects_map* addObject(Object* obj, subobjects_map* previous);
+  void addIncludeObject(std::string* filename, Object* obj, SubObjectContainer* previous);
 
   Object* root = NULL;
   std::string* newline_str = new std::string("\n");
@@ -32,7 +34,9 @@
   std::string* Placeholder;
   std::string* Text;
   std::vector<std::string>* ParameterList;
-  subobjects_map* subObjects;
+  /* first: subobjects, second: included objects */
+  //std::pair<subobjects_map*, subobjects_map*>* subObjects;
+  SubObjectContainer* subObjects;
   std::vector<Fragment*>* fragments;
   Fragment* fragment;
   std::vector<Expression*>* expressions;
@@ -41,8 +45,11 @@
   int Int;
 }
 
+%token <ObjName> SINCLUDE
+%token EINCLUDE
 %token SEMICOLON
 %token ASSIGN
+%token INCLUDE
 %left PLUS MINUS
 %left MULT DIV
 %left OR
@@ -56,6 +63,7 @@
 
 %start program
 
+%type<object> sub_program
 %type<subObjects> objects
 %type<object> object
 %type<fragments> fragments
@@ -71,13 +79,19 @@
 %%
 
 program:
-  objects { root = new Object();
-            root->objName = std::string("ROOT");
-            root->subObjects = *$1;}
+  sub_program { root = $1; std::cout << "uberroot is: " << root << "\n"; root->print();}
+
+sub_program:
+  objects { Object* obj = new Object();
+            obj->objName = std::string("ROOT");
+            obj->subObjects = $1->subObjects;
+            obj->includedObjects = $1->includedObjects;
+            $$ = obj; }
 
 objects:
-  object newlines          {$$ = addObject($1, new subobjects_map());}
-| object newlines objects  {$$ = addObject($1, $3);}
+  SINCLUDE sub_program EINCLUDE newlines objects {$$ = $5; addIncludeObject($1, $2, $5);}
+| object newlines           {$$ = new SubObjectContainer; addObject($1, &($$->subObjects));}
+| object newlines objects   {$$ = $3; addObject($1, &($$->subObjects));}
   ;
 
 /* Zero or any number */
@@ -147,6 +161,8 @@ single_line_fragments:
 placeholder:
   LSB varname RSB               {$$ = new PlaceholderFragment($2);}
 | LSB OBJNAME COLON varname RSB {$$ = new PlaceholderFragment($4, $2);}
+| LSB INCLUDE OBJNAME DOT varname RSB               {$$ = new IncludeFragment($3, $5);}
+| LSB OBJNAME COLON INCLUDE OBJNAME DOT varname RSB {$$ = new IncludeFragment($5, $7, $2);}
   ;
 
 varname:
@@ -155,6 +171,19 @@ varname:
   ;
 
 %%
+
+void addIncludeObject(std::string* includeName, Object* obj, SubObjectContainer* previous) {
+  include_map_iterator existing = previous->includedObjects.find(*includeName);
+
+// TODO hovrfor bruger jeg ikke existing? der må være en fejl...
+  if (existing != previous->includedObjects.end()) {
+    std::cerr << "Trying to include same name twice: " << *includeName << std::endl;
+    exit(-1);
+  // Otherwise just add the object to the list:
+  } else {
+    previous->includedObjects.insert(std::pair<std::string, Object*>(*includeName, obj));
+  }
+}
 
 subobjects_map* addObject(Object* obj, subobjects_map* previous){
   subobjects_map_iterator existing = previous->find(obj->objName);
@@ -174,7 +203,7 @@ subobjects_map* addObject(Object* obj, subobjects_map* previous){
 
 Object* newObject(std::string* objName
                  ,std::vector<Fragment*>* fragments
-                 ,subobjects_map* subObjects
+                 ,SubObjectContainer* subObjects
                  ,std::vector<std::string>* parameters
                  ,std::vector<Expression*>* expressions
                  ){
@@ -183,7 +212,7 @@ Object* newObject(std::string* objName
   Object* obj = new Object();
   if (objName)    obj->objName = *objName;
   if (fragments)  obj->fragments = *fragments;
-  if (subObjects) obj->subObjects = *subObjects;
+  if (subObjects) obj->subObjects = subObjects->subObjects;
   if (parameters) obj->parameters = *parameters;
   if (expressions) obj->expressions = *expressions;
   return obj;

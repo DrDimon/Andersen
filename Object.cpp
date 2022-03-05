@@ -4,17 +4,22 @@
 #include "ObjectPath.h"
 #include "Expression.h"
 
-void Object::print() {
-  std::cout << objName << std::endl;
+void Object::print(std::string indent) {
+  std::cout << indent << objName << ": " << this << std::endl;
+
+  for (auto object : includedObjects) {
+    std::cout << indent << "Included with name " << object.first << ":" << std::endl;
+    object.second->print(indent + "  ");
+  }
 
   for (auto elem : fragments) {
     elem->print();
   }
 
   for (auto object_list : subObjects) {
-    std::cout << "objects with name " << object_list.first << ":" << std::endl;
+    std::cout << indent << "objects with name " << object_list.first << ":" << std::endl;
     for (auto object : object_list.second) {
-      object->print();
+      object->print(indent + "  ");
     }
   }
 }

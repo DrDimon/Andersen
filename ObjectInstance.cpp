@@ -4,12 +4,14 @@
 #include "Object.h"
 #include "ObjectPath.h"
 
-ObjectInstance::ObjectInstance(Object* obj) {
+ObjectInstance::ObjectInstance(Object* obj, ObjectInstance* rootInstance) {
   if(!obj) {
     std::cerr << "Object instance cannot be created without an object" << std::endl;
     exit(1);
   }
   object = obj;
+  this->rootInstance = rootInstance ? rootInstance : this;
+  //this.includedFrom = includedFrom;
 }
 
 std::string ObjectInstance::render(Object* root
@@ -17,6 +19,9 @@ std::string ObjectInstance::render(Object* root
                                   ,std::map<PathPart*, std::vector<ObjectInstance*>> parameters
                                   ,std::string variable_name
                                   ) {
+
+  std::cout << "rendering " << root->objName << ": " << root << "\n";
+  path.print();
 
   PathPart* current_path = path.current_object();
   PathPart* next_subobject = path.pop_next_object();
@@ -40,7 +45,7 @@ std::string ObjectInstance::render(Object* root
       variable_name = elem->get_variableName();
 
       if ( variable_name == "") {
-        instance = new ObjectInstance(object);
+        instance = new ObjectInstance(object, rootInstance);
       } else {
         instance = get_named_objectinst(variable_name);
       }
@@ -63,12 +68,12 @@ std::string ObjectInstance::render(Object* root
     ObjectInstance* next_object_instance;
 
     if (next_subobject->get_path_name() == "ROOT") {
-      next_object_instance = new ObjectInstance(root);
+      next_object_instance = new ObjectInstance(root, rootInstance);
     } else {
       std::vector<std::string> next_obj_params = object->get_next_subobject_params(next_subobject->get_path_name());
       move_parameters_to_namedObjects(parameters[next_subobject], next_obj_params);
       Object* next_object = object->get_random_subobject(next_subobject->get_path_name(), namedObjects);
-      next_object_instance = new ObjectInstance(next_object);
+      next_object_instance = new ObjectInstance(next_object, rootInstance);
     }
     subObjects.insert(std::pair<std::string, ObjectInstance*>(next_subobject->get_path_name(), next_object_instance));
 
@@ -88,7 +93,7 @@ ObjectInstance* ObjectInstance::get_named_objectinst(std::string name) {
   if (named_instance != namedObjects.end()) {
     result = named_instance->second;
   } else {
-    result = new ObjectInstance(object);
+    result = new ObjectInstance(object, rootInstance);
     namedObjects.insert(std::pair<std::string, ObjectInstance*>(name, result));
   }
 
@@ -171,4 +176,15 @@ void ObjectInstance::set_variable(std::string var_name, int value) {
   } else {
     variables.insert(std::pair<std::string, int>(var_name, value));
   }
+}
+
+ObjectInstance* ObjectInstance::getOrSetIncludedInstance(std::string includeName, Object* includedObject) {
+
+  ObjectInstance* result = includedInstances[includeName];
+  if (result) return result;
+
+  result = new ObjectInstance(includedObject, NULL);
+  includedInstances[includeName] = result;
+
+  return result;
 }
