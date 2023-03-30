@@ -276,3 +276,10 @@ See examples/expressions\*.and for further examples.
 ## Comments
 
 Use // to create comments. They may be a little bit funky regarding newlines. I'm working on that...
+
+## Ideas
+- Sample with/without replacement.
+- Finish import.
+- Variable calculated keys should be absolute.
+- Probability weights in expressions.
+- Random numberers in expressions
