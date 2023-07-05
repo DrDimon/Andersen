@@ -1,0 +1,30 @@
+<TOP>
+[PERS1:ROOT.VELKOMST(PERS1)], hvad laver vi i sækkestolen?
+
+Ja, det er mig der er [PERS1:ROOT.NAME(PERS1)] Jeg er glad for du spørger [ROOT.NAME(PERS1)], vi samler kugler op.
+
+Fedt mand!
+</TOP>
+
+<NAME(CHR1){FUNC.ASDF;}>
+Mr Bean
+</NAME>
+<NAME(CHR1)>
+Poul Nyrup
+</NAME>
+<NAME(CHR1)>
+Charles
+</NAME>
+<NAME(CHR1)>
+Preben
+</NAME>
+
+<VELKOMST(CHR)>
+Hej [CHR:ROOT.NAME(CHR)], godt at se dig
+</VELKOMST>
+<VELKOMST(CHR)>
+Velkommen [CHR:ROOT.NAME(CHR)]
+</VELKOMST>
+<VELKOMST(CHR)>
+Vær hilset søde [CHR:ROOT.NAME(CHR)]
+</VELKOMST>

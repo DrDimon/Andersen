@@ -8,4 +8,4 @@ andersen :
 	g++ -std=c++11 y.tab.o lex.yy.o Object.o ObjectInstance.o ObjectPath.o TextFragment.o PlaceholderFragment.o Expression.o PathPart.o -o Andersen
 
 clean:
-	rm lex.yy.c y.tab.c  y.tab.h Object.o ObjectInstance.o ObjectPath.o TextFragment.o PlaceholderFragment.o Expression.o PathPart.o
+	rm lex.yy.c y.tab.c  y.tab.h Object.o ObjectInstance.o ObjectPath.o TextFragment.o PlaceholderFragment.o Expression.o PathPart.o lex.yy.o y.output y.tab.o

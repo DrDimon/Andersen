@@ -177,4 +177,13 @@ class Or : public Expression {
     };
 };
 
+class Func : public Expression {
+  std::string functionName;
+  public:
+    int eval_int(inst_subobjects_map namedObjects) override;
+    std::string to_string(inst_subobjects_map namedObjects) override { return "FUNC." + functionName; }
+    Func(const std::string& functionName) : functionName(functionName) {}
+
+};
+
 #endif

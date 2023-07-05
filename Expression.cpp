@@ -34,3 +34,7 @@ int Variable::eval_int(inst_subobjects_map namedObjects) {
   // perfect:
   return object->second->get_variable(varname);
 }
+
+int Func::eval_int(inst_subobjects_map namedObjects) {
+  return 1;
+}

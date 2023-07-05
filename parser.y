@@ -51,6 +51,7 @@
 %token <Int> INT
 %token LCB RCB ELAB LAB RAB LSB RSB LRB RRB COMMA NEWLN COLON DOT
 %token <ObjName> OBJNAME
+%token FUNC
 %token <Placeholder> PLACEHOLDER
 %token <Text> TEXT
 
@@ -107,6 +108,7 @@ inner_expressions:
 expression:
   INT                        { $$ = new Int($1);}
 | OBJNAME DOT OBJNAME        { $$ = new Variable(*$1, *$3);}
+| FUNC DOT OBJNAME           { $$ = new Func(*$3);}
 | expression PLUS expression { $$ = new Add($1, $3);}
 | expression MINUS expression { $$ = new Sub($1, $3);}
 | expression MULT expression  { $$ = new Mult($1, $3);}

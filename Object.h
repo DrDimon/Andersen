@@ -17,6 +17,7 @@ class Object {
     std::vector<std::string> parameters;
     subobjects_map subObjects;
     std::vector<Expression*> expressions;
+    unsigned int counter = 0;
 
   std::vector<Fragment*> get_fragments() {
     return fragments;
@@ -42,6 +43,8 @@ class Object {
 
   bool validate_expressions(inst_subobjects_map namedObjects);
   void execute_expressions(inst_subobjects_map namedObjects);
+  void increment_count() { counter++; }
+  unsigned int get_count() const { return counter; }
 };
 
 #endif

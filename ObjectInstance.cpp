@@ -10,6 +10,7 @@ ObjectInstance::ObjectInstance(Object* obj) {
     exit(1);
   }
   object = obj;
+  object->increment_count();
 }
 
 std::string ObjectInstance::render(Object* root

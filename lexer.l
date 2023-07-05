@@ -30,6 +30,7 @@ BEGIN STEXT;
 <SEXPR>" "*"&&"    { return AND; }
 <SEXPR>" "*"||"    { return OR; }
 <SEXPR>" "* /*ignore spaces in expressions*/
+<SEXPR>" "*"FUNC"  { return FUNC; }
 
 " "*<                          { BEGIN STAG;         return LAB;}
 " "*"</"                       { BEGIN STAG;         return ELAB;}
