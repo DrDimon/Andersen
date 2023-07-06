@@ -78,13 +78,13 @@ Object* Object::get_random_subobject(std::string name, inst_subobjects_map named
 
 bool Object::validate_expressions(inst_subobjects_map namedObjects) {
   for (Expression* expression : expressions){
-    if(!expression->eval_bool(namedObjects)) return false;
+    if(!expression->eval_bool(this, namedObjects)) return false;
   }
   return true;
 }
 
 void Object::execute_expressions(inst_subobjects_map namedObjects) {
   for (Expression* expression : expressions) {
-    expression->execute(namedObjects);
+    expression->execute(this, namedObjects);
   }
 }

@@ -1,22 +1,13 @@
 <TOP>
-[PERS1:ROOT.VELKOMST(PERS1)], hvad laver vi i sækkestolen?
+[PERS1:ROOT.VELKOMST(PERS1)], hvad laver vi i sækkestolen? [ROOT.NAME(PERS1)]
 
 Ja, det er mig der er [PERS1:ROOT.NAME(PERS1)] Jeg er glad for du spørger [ROOT.NAME(PERS1)], vi samler kugler op.
 
 Fedt mand!
 </TOP>
 
-<NAME(CHR1){FUNC.ASDF;}>
+<NAME(CHR1){FUNC.ASDF <= 10;}>
 Mr Bean
-</NAME>
-<NAME(CHR1)>
-Poul Nyrup
-</NAME>
-<NAME(CHR1)>
-Charles
-</NAME>
-<NAME(CHR1)>
-Preben
 </NAME>
 
 <VELKOMST(CHR)>

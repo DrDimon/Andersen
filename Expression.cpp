@@ -1,24 +1,25 @@
 #include "Expression.h"
+#include "Object.h"
 
 #include <iostream>
 
 #include "ObjectInstance.h"
 
-void Assign::execute(inst_subobjects_map namedObjects) {
+void Assign::execute(const Object* obj, inst_subobjects_map namedObjects) {
 
-  ObjectInstance* obj = namedObjects[objname];
+  ObjectInstance* obj_inst = namedObjects[objname];
 
-  if( !obj ) {
+  if( !obj_inst ) {
     std::cerr << "Object not found: " << objname << std::endl;
     exit(1);
   }
 
-  int value = expression->eval_int(namedObjects);
-  obj->set_variable(varname, value);
+  int value = expression->eval_int(obj, namedObjects);
+  obj_inst->set_variable(varname, value);
 
 }
 
-int Variable::eval_int(inst_subobjects_map namedObjects) {
+int Variable::eval_int(const Object* obj, inst_subobjects_map namedObjects) {
 
   // First, we find the object in the named object list.
   // This is the list of parameters given in the placeholder.
@@ -35,6 +36,7 @@ int Variable::eval_int(inst_subobjects_map namedObjects) {
   return object->second->get_variable(varname);
 }
 
-int Func::eval_int(inst_subobjects_map namedObjects) {
-  return 1;
+int Func::eval_int(const Object* obj, inst_subobjects_map namedObjects) {
+  std::cout << obj->get_count() << "\n";
+  return obj->get_count();
 }
